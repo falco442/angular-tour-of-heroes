@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Hero} from '../hero';
+import {Store} from "@ngrx/store";
+import {heroAdd, heroEdit} from "../actions/heroes.actions";
 
 @Component({
   selector: 'app-hero-detail',
@@ -10,9 +12,17 @@ export class HeroDetailComponent implements OnInit {
 
   @Input() hero?: Hero;
 
-  constructor() { }
+  constructor(private store: Store) { }
 
   ngOnInit(): void {
+  }
+
+  setHero(hero: Hero) {
+    this.store.dispatch(heroEdit(hero));
+  }
+
+  addHero(hero: Hero) {
+    this.store.dispatch(heroAdd(hero));
   }
 
 }

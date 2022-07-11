@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Hero} from '../hero';
-import { HEROES } from '../mock-heroes';
+import {Store} from "@ngrx/store";
+import {Observable} from "rxjs";
+import {State} from "../reducers/heroes.reducer";
 
 @Component({
   selector: 'app-heroes',
@@ -9,19 +11,14 @@ import { HEROES } from '../mock-heroes';
 })
 export class HeroesComponent implements OnInit {
 
-  hero: Hero = {
-    id: 1,
-    name: 'Windstorm'
-  };
-
-  heroes = HEROES;
+  heroes: Observable<Hero[]> = this.store.select((state: any) => state.heroState.heroes);
 
   selectedHero?: Hero;
   onSelect(hero: Hero): void {
-    this.selectedHero = hero;
+    this.selectedHero = Object.assign({}, hero);
   }
 
-  constructor() { }
+  constructor(private store: Store<State>) { }
 
   ngOnInit(): void {
   }

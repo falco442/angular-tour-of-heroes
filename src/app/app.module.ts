@@ -7,6 +7,7 @@ import { HeroesComponent } from './heroes/heroes.component';
 import {FormsModule} from '@angular/forms';
 import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 import { StoreModule } from '@ngrx/store';
+import {heroesReducer} from "./reducers/heroes.reducer";
 
 @NgModule({
   declarations: [
@@ -14,12 +15,12 @@ import { StoreModule } from '@ngrx/store';
     HeroesComponent,
     HeroDetailComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        FormsModule,
-        StoreModule.forRoot({}, {})
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    StoreModule.forRoot({heroState: heroesReducer}, {})
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
