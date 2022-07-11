@@ -3,6 +3,7 @@ import {Hero} from '../hero';
 import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
 import {State} from "../reducers/heroes.reducer";
+import {heroRemove} from "../actions/heroes.actions";
 
 @Component({
   selector: 'app-heroes',
@@ -21,6 +22,10 @@ export class HeroesComponent implements OnInit {
   constructor(private store: Store<State>) { }
 
   ngOnInit(): void {
+  }
+
+  del(hero: Hero) {
+    this.store.dispatch(heroRemove(hero));
   }
 
 }

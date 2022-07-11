@@ -1,5 +1,5 @@
 import {createReducer, on} from "@ngrx/store";
-import {heroAdd, heroEdit} from "../actions/heroes.actions";
+import {heroAdd, heroEdit, heroRemove} from "../actions/heroes.actions";
 import {Hero} from "../hero";
 import {HEROES} from "../mock-heroes";
 
@@ -28,6 +28,11 @@ export const heroesReducer = createReducer(
     clonedHero.id = state.heroes.length;
     clonedState.heroes.push(clonedHero);
     console.log('Aggiunto eroe');
+    return clonedState;
+  }),
+  on(heroRemove, (state: State, hero: Hero) => {
+    const clonedState: State = JSON.parse(JSON.stringify(state));
+    clonedState.heroes.splice(clonedState.heroes.findIndex((h: Hero) => h.id === hero.id), 1);
     return clonedState;
   })
 );
