@@ -8,6 +8,10 @@ import {FormsModule} from '@angular/forms';
 import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 import { StoreModule } from '@ngrx/store';
 import {heroesReducer} from "./reducers/heroes.reducer";
+import {HttpClientModule} from "@angular/common/http";
+import {EffectsModule} from "@ngrx/effects";
+import {HeroEffect} from "./effects/hero.effect";
+import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 
 @NgModule({
   declarations: [
@@ -19,7 +23,10 @@ import {heroesReducer} from "./reducers/heroes.reducer";
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    StoreModule.forRoot({heroState: heroesReducer}, {})
+    HttpClientModule,
+    StoreModule.forRoot({heroState: heroesReducer}, {}),
+    EffectsModule.forRoot([HeroEffect]),
+    StoreDevtoolsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

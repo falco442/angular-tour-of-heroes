@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Hero} from '../hero';
 import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
@@ -22,6 +22,7 @@ export class HeroesComponent implements OnInit {
   constructor(private store: Store<State>) { }
 
   ngOnInit(): void {
+    this.store.dispatch({type: 'Hero List'});
   }
 
   del(hero: Hero) {

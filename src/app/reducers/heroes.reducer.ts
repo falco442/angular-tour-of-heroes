@@ -1,18 +1,24 @@
 import {createReducer, on} from "@ngrx/store";
-import {heroAdd, heroEdit, heroRemove} from "../actions/heroes.actions";
+import {heroAdd, heroEdit, heroList, heroListApiSuccess, heroRemove} from "../actions/heroes.actions";
 import {Hero} from "../hero";
-import {HEROES} from "../mock-heroes";
 
 export interface State {
   heroes: Hero[];
 }
 
 export const initialState: State = {
-  heroes: HEROES
+  heroes: []
 };
 
 export const heroesReducer = createReducer(
   initialState,
+  on(heroListApiSuccess, (state: State, heroesState: any) => {
+    const clonedState = JSON.parse(JSON.stringify(state));
+    clonedState.heroes = heroesState.heroes;
+    console.log(heroesState.heroes);
+    return clonedState;
+  }),
+  on(heroList, (state: State) => ({...state})),
   on(heroEdit, (state: State, hero: Hero) => {
     const clonedState: State = JSON.parse(JSON.stringify(state));
     const oldHeroIndex: number = clonedState.heroes.findIndex((h: Hero) => h.id === hero.id);
