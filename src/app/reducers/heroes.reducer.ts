@@ -12,10 +12,9 @@ export const initialState: State = {
 
 export const heroesReducer = createReducer(
   initialState,
-  on(heroListApiSuccess, (state: State, heroesState: any) => {
+  on(heroListApiSuccess, (state: State, heroesState: {heroes: ReadonlyArray<Hero>}) => {
     const clonedState = JSON.parse(JSON.stringify(state));
     clonedState.heroes = heroesState.heroes;
-    console.log(heroesState.heroes);
     return clonedState;
   }),
   on(heroList, (state: State) => ({...state})),
